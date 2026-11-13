@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     }
 
     printf("This is main thread\n");
-
+//referenca na objekat prolazi kroz ceo niz, i ceka se da svi zavrse pa se onda meri vreme
     for (auto& t : threads)
     {
         t.join();

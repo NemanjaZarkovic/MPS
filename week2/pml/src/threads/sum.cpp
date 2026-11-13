@@ -12,7 +12,7 @@ using Sum = long long;
 
 void sum_block(int begin, int end, Sum& result)
 {
-    Sum local = 0;
+    Sum local = 0;//nit radi po lokalnoj promenljivoj, ako bi se koristio result imali bi problem sa kesom, jedna bi koristila a druga refresovala tu vrednost
 
     for (int i = begin; i < end; ++i)
     {
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
         return 1;
     }
     const int n = size;
-    vector<Sum> partial(num_workers, 0);
+    vector<Sum> partial(num_workers, 0);//za cuvanje elemenata racunanja koji ce biti sacuvani kasnije
     vector<thread> threads;
     threads.reserve(num_workers);
 
@@ -58,7 +58,7 @@ int main(int argc, char** argv)
     {
         const int begin = Sum(n) * t / num_workers;
         const int end_index = Sum(n) * (t + 1) / num_workers;
-        threads.emplace_back(sum_block, begin, end_index, ref(partial[t]));
+        threads.emplace_back(sum_block, begin, end_index, ref(partial[t]));//prosledjivanje po referenci da bi se zapravo dobila vrednost i videli rezultat, to ne bi moglo po kopiji
     }
 
     for (auto& t : threads)
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
     const auto finish = chrono::steady_clock::now();
     const Sum num_values = n;
     const Sum expected = num_values * (num_values + 1) / 2;
-    if (sequential != expected || parallel != expected)
+    if (sequential != expected || parallel != expected)// provera da sekvencijalna i paralelna dobiju istu vrednost
     {
         return 1;
     }

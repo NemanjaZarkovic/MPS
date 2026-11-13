@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     threads.reserve(num_workers);
 
     for (int t = 0; t < num_workers; ++t)
-    {
+    {//unutar poziva se kreira funkcija koju ce niti izvrsavati {}-telo sta fkija izvrsava, a []argumenti se prosledjuju u njima[&, t] kopija po referenci prosledjivanje
         threads.emplace_back([t]
         {
             printf("Hello from worker %d\n", t);
